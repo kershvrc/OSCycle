@@ -66,6 +66,25 @@ Currently, the unit is powered via a standard USB Battery Bank for portability a
     Investigation Needed: I haven't investigated these pins yet, but the goal is to tap into the heart rate data
 
 🛠️ Hardware Setup
+
+
+### 📸 Hardware & PCB Reference
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/d5002f09-f7e5-4c5b-aebb-930fef9e091e" width="250px" alt="PCB Front"/><br />
+      <b>Soldered in</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/5f4cb5da-51b5-4c5d-b14d-e33df648ca44" width="250px" alt="Wiring Close-up"/><br />
+      <b>Solder Points</b>
+    </td>
+    <td align="center">
+      <img src="https://github.com/user-attachments/assets/72501e6e-b897-40a3-a29d-4b30f439af05" width="250px" alt="Case Assembly"/><br />
+      <b>Testing before I solder using 3.5mm to rca adapter</b>
+    </td>
+  </tr>
+</table>
 Method 1: The "In-Line Bridge" (Plug-and-Play)
 
 Ideal if your bike uses 3.5mm connectors. This creates a "Y-tap" so your original bike computer still works.
@@ -73,6 +92,7 @@ Ideal if your bike uses 3.5mm connectors. This creates a "Y-tap" so your origina
     The Shared Ground: Connect the Sleeve of the Female Jack, the Sleeve of the Male Plug, and GND on the ESP8266.
 
     The Signal Tap: Connect the Tip of the Female Jack, the Tip of the Male Plug, and GPIO 12 (D6) on the ESP8266.
+
 
 Method 2: The "Direct Solder" (The Kersh Method)
 
@@ -124,8 +144,6 @@ Open the .ino sketch and navigate to the NET_DEFAULTS section. Replace the place
     Enable OSC in the Action Menu (Expressions > Options > OSC > Enabled).
 
     Start pedaling! 🚴
-
-
 
 
 🤝 Contribution & Support
