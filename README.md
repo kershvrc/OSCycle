@@ -3,6 +3,11 @@
 Turn your stationary bike into a high-performance VR controller.
 
 OSCycle is an open-source hardware and software bridge designed for VR fitness. It converts real-world physical activity on a stationary bike into OSC (Open Sound Control) data, allowing your VRChat avatar to move in sync with your pedaling. Built for the ESP8266, it’s a low-cost, highly customizable alternative to commercial VR fitness trackers.
+
+## 📺 OSCycle in Action
+[<img src="https://img.youtube.com/vi/UXpXUJbaroM/maxresdefault.jpg" width="100%" alt="OSCycle Demo Video">](https://www.youtube.com/watch?v=UXpXUJbaroM)
+*Click the image above to watch the demo on YouTube!*
+
 ✨ Core Features
 ⚙️ Hybrid Velocity Engine
 
