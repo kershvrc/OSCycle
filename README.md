@@ -1,4 +1,4 @@
-# 🚴 OSCycle v4.5.4
+# 🚴 OSCycle
 
 > Turn your stationary bike into a VR controller.
 
