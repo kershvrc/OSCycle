@@ -1,8 +1,8 @@
-# 🚴 OSCycle
+# 🚴 OSCycle v4.5.4
 
-> Turn your stationary bike into a high-performance VR controller.
+> Turn your stationary bike into a VR controller.
 
-OSCycle is an open-source hardware and software bridge designed for VR fitness. It converts real-world pedaling on a stationary bike into OSC (Open Sound Control) data, moving your VRChat avatar in sync with your body. Built for the ESP8266 — a low-cost, highly customizable alternative to commercial VR fitness trackers.
+OSCycle is an open-source hardware and software bridge for VR fitness. It reads the reed switch sensor on a stationary bike and converts wheel rotations into OSC (Open Sound Control) data, moving your VRChat avatar in sync with your pedaling. Built for the ESP8266 — a cheap, widely available microcontroller that handles sensor reading, Wi-Fi, and a web dashboard all in one.
 
 ---
 
@@ -14,13 +14,16 @@ OSCycle is an open-source hardware and software bridge designed for VR fitness. 
 
 ## ✨ Features
 
-### ⚙️ Hybrid Velocity Engine
-The core of OSCycle intelligently tracks movement using two modes:
-- **Low-Speed Fluidity** — At walking speeds, movement is calculated pulse-by-pulse for a smooth, stutter-free experience.
-- **High-Speed Stability** — At sprinting speeds, it switches to frequency tracking for rock-solid data and zero CPU lag.
+### ⚙️ How Speed Tracking Works
+OSCycle measures the time between pulses from the bike's wheel sensor to calculate speed. It uses two modes depending on how fast you're going:
+
+- **Low speed** — calculates velocity pulse-by-pulse. Works well and feels smooth at walking and moderate cycling speeds.
+- **High speed** — switches to frequency-based tracking to reduce CPU load and avoid jitter.
+
+**Known limitation:** At high speeds, pulse intervals get very short and readings become less reliable. Speed can plateau or behave inconsistently depending on your debounce setting, sensor quality, and how clean the signal is from your bike. This is an active area we're looking to improve — see the [Roadmap](#-roadmap) section.
 
 ### 💬 VRChat Chatbox Integration
-Broadcast your workout stats directly to your VRChat chatbox:
+Sends real-time workout stats directly to your VRChat chatbox:
 - Live speed (toggleable between MPH and KMH)
 - Trip distance
 - Estimated wattage
@@ -50,7 +53,17 @@ Currently powered via USB battery bank for portability. The unit can also be wir
 
 ## 🔮 Roadmap
 
-- **Heart Rate Monitoring** — Most stationary bikes have built-in pulse handles connected via a 3-pole (TRS) 3.5mm jack. Investigation into tapping this data is planned.
+### High-Speed Accuracy
+The biggest open problem right now. At high cadence, pulse intervals get short enough that debounce settings, signal noise, and ISR timing on the ESP8266 all start to interfere. Speed plateaus and stops reflecting real-world effort accurately.
+
+Some directions worth exploring:
+- **Adaptive debounce** — dynamically lowering the debounce threshold as speed increases, rather than using a fixed value
+- **Rolling window averaging** — smoothing speed over the last N pulses instead of relying on a single interval
+
+If you have experience with sensor signal processing or ESP8266 ISR timing and want to take a crack at any of these, a Pull Request would be very welcome.
+
+### Heart Rate Monitoring
+Most stationary bikes have built-in pulse handles connected via a 3-pole (TRS) 3.5mm jack. Investigation into tapping this data is planned but hasn't started yet.
 
 ---
 
@@ -83,7 +96,7 @@ Ideal if your bike uses 3.5mm connectors. Creates a Y-tap so your original bike 
 | Sleeve of Female Jack + Sleeve of Male Plug | GND on ESP8266 |
 | Tip of Female Jack + Tip of Male Plug | GPIO 12 (D6) on ESP8266 |
 
-### Method 2 — Direct Solder (The Kersh Method)
+### Method 2 — Direct Solder
 A permanent, low-profile solution.
 
 1. Locate the sensor solder pads on the back of your bike's original controller PCB.
@@ -129,4 +142,4 @@ Open the `.ino` sketch and find the `NET_DEFAULTS` section. Replace with your de
 
 I am not a coder — 95% of the logic and optimization in this project was built through collaborative prompting with AI.
 
-Have suggestions for the code, better ways to handle the 3-pole pulse sensors, or improvements to the dashboard? Submit a Pull Request or open an Issue. Community help is more than welcome.
+Have suggestions for the code, ideas on the high-speed accuracy problem, better ways to handle the 3-pole pulse sensors, or improvements to the dashboard? Submit a Pull Request or open an Issue. Community help is genuinely useful here.
